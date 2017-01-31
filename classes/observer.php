@@ -22,6 +22,7 @@ final class observer {
         if (PHP_INT_SIZE < 8)
             return;
         $files = get_file_storage()->get_area_files($contextid, $component, $area);
+        /* @var $mp4files \stored_file[] */
         $mp4files = array_filter($files, function (\stored_file $file) {
             return preg_match('#^(video|audio)/mp4$#', $file->get_mimetype());
         });
