@@ -50,15 +50,19 @@ final class observer {
             $tempstream = io\fstream::create($temppath);
             $tempmovie->copy_to($tempstream);
             unset($tempmovie, $tempstream, $movie, $stream);
-            $filerecord = self::create_filerecord_from_stored_file($file);
-            $filerecord->timemodified = time();
-            $file->delete();
-            get_file_storage()->create_file_from_pathname($filerecord, $temppath);
+            self::replace_stored_file_with_pathname($file, $temppath);
             unlink($temppath);
         } catch (\moodle_exception $ex) {
             debugging((string)$ex);
             continue;
         }
+    }
+
+    private static function replace_stored_file_with_pathname(\stored_file $file, $pathname) {
+        $filerecord = self::create_filerecord_from_stored_file($file);
+        $filerecord->timemodified = time();
+        $file->delete();
+        get_file_storage()->create_file_from_pathname($filerecord, $pathname);
     }
 
     private static function create_filerecord_from_stored_file(\stored_file $file) {
