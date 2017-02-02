@@ -21,10 +21,12 @@ final class observer {
     private static function fix_mp4_in_area(int $contextid, string $component, string $area) {
         if (PHP_INT_SIZE < 8)
             return;
+        $now = time();
         $files = get_file_storage()->get_area_files($contextid, $component, $area);
         /* @var $mp4files \stored_file[] */
-        $mp4files = array_filter($files, function (\stored_file $file) {
-            return preg_match('#^(video|audio)/mp4$#', $file->get_mimetype());
+        $mp4files = array_filter($files, function (\stored_file $file) use ($now) {
+            return preg_match('#^(video|audio)/mp4$#', $file->get_mimetype())
+                && $file->get_timemodified() == $now;
         });
         if (empty($mp4files))
             return;
