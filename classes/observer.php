@@ -25,8 +25,9 @@ final class observer {
         $files = get_file_storage()->get_area_files($contextid, $component, $area);
         /* @var $mp4files \stored_file[] */
         $mp4files = array_filter($files, function (\stored_file $file) use ($now) {
-            return preg_match('#^(video|audio)/mp4$#', $file->get_mimetype())
-                && $file->get_timemodified() == $now;
+            $mtime = (int)$file->get_timemodified();
+            return in_array($file->get_mimetype(), [ 'video/mp4', 'audio/mp4', 'video/quicktime' ])
+                && $_SERVER['REQUEST_TIME'] <= $mtime && $mtime <= $now;
         });
         if (empty($mp4files))
             return;
