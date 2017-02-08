@@ -49,7 +49,6 @@ class stco_box implements full_box {
     }
 
     public function copy_to(stream $dest) {
-        $this->copy_box_header_to($dest);
         $this->copy_full_box_header_to($dest);
         $writer = new writer($dest);
         $writer->write_uint32(count($this->chunk_offsets));

@@ -56,7 +56,7 @@ final class observer {
             self::replace_stored_file_with_pathname($file, $temppath);
             unlink($temppath);
         } catch (\moodle_exception $ex) {
-            debugging((string)$ex);
+            debugging($ex);
             continue;
         }
     }

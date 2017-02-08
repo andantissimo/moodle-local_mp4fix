@@ -31,6 +31,7 @@ trait full_box_trait {
     }
 
     protected function copy_full_box_header_to(stream $dest) {
+        $this->copy_box_header_to($dest);
         $dest->write(pack('N', $this->version << 24 | $this->flags));
     }
 }

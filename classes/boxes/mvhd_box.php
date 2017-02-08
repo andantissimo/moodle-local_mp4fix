@@ -82,7 +82,6 @@ class mvhd_box implements full_box {
     }
 
     public function copy_to(stream $dest) {
-        $this->copy_box_header_to($dest);
         $this->copy_full_box_header_to($dest);
         $writer = new writer($dest);
         if ($this->version === 0) {

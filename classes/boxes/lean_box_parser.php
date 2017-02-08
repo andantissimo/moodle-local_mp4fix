@@ -21,16 +21,15 @@ class lean_box_parser implements box_parser {
         $type = substr($header, 4, 4);
         $box = self::create_box($type);
         if ($size === 1) {
-            $large = $source->read(8);
-            if (strlen($large) !== 8)
+            $header .= $source->read(8);
+            if (strlen($header) !== 16)
                 return null;
-            $size = unpack('J', $large)[1];
-            $payload = new substream($source, $source->tell(), $size - 16);
-        } else {
-            $payload = new substream($source, $source->tell(), $size - 8);
+            $size = unpack('J', substr($header, 8, 8))[1];
         }
+        $offset = $source->tell();
+        $payload = new substream($source, $offset, $size - strlen($header));
         $box->parse($payload, $this);
-        $payload->seek(0, SEEK_END);
+        $source->seek($offset + $payload->get_size());
         return $box;
     }
 
