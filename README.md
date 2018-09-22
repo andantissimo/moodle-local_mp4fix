@@ -1,6 +1,6 @@
 # MP4 Fix local plugin
 
-This plugin modifies MP4 files to progressive downloadable: puts moov atom before mdat.
+This plugin modifies uploaded MP4 files for progressive download; moves the index (moov atom) to the beginning of the file.
 
 ## Requirements
 
