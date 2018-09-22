@@ -632,8 +632,8 @@ state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
     MP4 Fix local plugin
-    modifies uploaded MP4 file for progressive download.
-    Copyright (C) 2018 MALU
+    modifies uploaded MP4 files for progressive download.
+    Copyright (C) 2017 MALU
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
